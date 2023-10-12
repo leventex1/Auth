@@ -12,8 +12,12 @@ bcrypt = Bcrypt()
 
 
 
-def create_app():
-    app.config.from_envvar('AUTH_SERVICE_CONFIG')
+def create_app(config: object):
+    
+    if not config:
+        app.config.from_envvar('AUTH_SERVICE_CONFIG')
+    else:
+        app.config.from_object(config)
 
     db.init_app(app)
     bcrypt.init_app(app)
